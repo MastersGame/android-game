@@ -10,6 +10,8 @@ public class ImageService {
 
     private Bitmap photo;
 
+    private Bitmap thresholdedBitmap;
+
     private ImageService() {
     }
 
@@ -99,5 +101,13 @@ public class ImageService {
 
     public void setPhoto(Bitmap photo) {
         this.photo = photo;
+    }
+
+    public Bitmap getThresholdedBitmap() {
+        return thresholdedBitmap;
+    }
+
+    public void setThresholdedBitmap(Bitmap thresholdedBitmap) {
+        this.thresholdedBitmap = thresholdedBitmap;
     }
 }
