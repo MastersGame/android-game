@@ -117,7 +117,7 @@ public class GameService {
     public void setup() {
         map = imageService.getThresholdedBitmap();
         Random r = new Random();
-        nbTentatives = 0;
+        nbTentatives = 1;
 
         //Iterate till start is not on a with pixel
         do {

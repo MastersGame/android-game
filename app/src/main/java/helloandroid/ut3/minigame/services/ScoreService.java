@@ -65,7 +65,7 @@ public class ScoreService {
     private void saveScoresToFile() {
         try (PrintWriter writer = new PrintWriter(new File(ScoreService.context.getFilesDir(), FILE_NAME))) {
             for (Score score : scores) {
-                writer.println(score.getDate().getTime() + "," + score.getScore());
+                writer.println(score.getDate().getTime() + "," + score.getScore() + "," + score.getNbTentatives());
             }
         } catch (IOException e) {
             e.printStackTrace();
