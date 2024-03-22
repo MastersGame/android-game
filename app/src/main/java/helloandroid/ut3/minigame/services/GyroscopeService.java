@@ -62,7 +62,6 @@ public class GyroscopeService implements SensorEventListener {
         synchronized (this) {
             if (sensor == Sensor.TYPE_ACCELEROMETER) {
                 this.direction = computeDirection(event.values[0],event.values[1]);
-                Log.d("aaaaa"," "+this.direction);
             }
         }
     }
