@@ -10,23 +10,21 @@ import android.view.SurfaceView;
 
 import androidx.annotation.NonNull;
 
+import helloandroid.ut3.minigame.data.Position;
+import helloandroid.ut3.minigame.services.GameService;
 import helloandroid.ut3.minigame.threads.GameThread;
 
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
-
     private final GameThread thread;
-    private final int y;
-    private final Bitmap photo;
-    private final int threshold = 128;
-    private int x = 0;
+    private final GameService gameService = GameService.getInstance();
+    private final int POINT_COLOR = Color.rgb(250, 0, 0);
 
-    public GameView(Context context, int aY, Bitmap photo) {
+
+    public GameView(Context context) {
         super(context);
         getHolder().addCallback(this);
         thread = new GameThread(getHolder(), this);
         setFocusable(true);
-        y = aY;
-        this.photo = photo;
     }
 
     @Override
@@ -62,29 +60,29 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             int canvasWidth = canvas.getWidth();
             int canvasHeight = canvas.getHeight();
 
+            final Bitmap map = gameService.getMap();
+
             // Dessiner le bitmap en étirant pour remplir toute la surface
-            if (photo != null) {
+            if (map != null) {
                 // Calculer les facteurs d'échelle pour l'ajustement
-                float scaleX = (float) canvasWidth / photo.getWidth();
-                float scaleY = (float) canvasHeight / photo.getHeight();
+                float scaleX = (float) canvasWidth / map.getWidth();
+                float scaleY = (float) canvasHeight / map.getHeight();
 
                 // Créer une matrice de transformation
                 android.graphics.Matrix matrix = new android.graphics.Matrix();
                 matrix.setScale(scaleX, scaleY);
 
                 // Dessiner le bitmap avec la matrice de transformation
-                canvas.drawBitmap(photo, matrix, null);
+                canvas.drawBitmap(map, matrix, null);
             }
+
+            final Position currentPosition = gameService.getCurrentPosition();
 
             // Dessiner le rectangle rouge
             Paint paint = new Paint();
-            paint.setColor(Color.rgb(250, 0, 0));
-            canvas.drawCircle(x, y, 50, paint);
+            paint.setColor(POINT_COLOR);
+            canvas.drawCircle(currentPosition.getX(), currentPosition.getY(), gameService.getRadius(), paint);
         }
-    }
-
-    public void update() {
-        x = (x + 1) % 300;
     }
 
 
