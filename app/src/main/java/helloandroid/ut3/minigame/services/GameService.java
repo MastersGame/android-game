@@ -113,10 +113,20 @@ public class GameService {
     public void setup() {
         map = imageService.getThresholdedBitmap();
         Random r = new Random();
-        //Starting position
-        startingPosition = new Position(r.nextInt(map.getHeight() - 2 * DEFAULT_BORDER_SIZE) + DEFAULT_BORDER_SIZE, r.nextInt(map.getHeight() - 2 * DEFAULT_BORDER_SIZE) + DEFAULT_BORDER_SIZE);
-        victoryPosition = new Position(r.nextInt(map.getHeight() - 2 * DEFAULT_BORDER_SIZE) + DEFAULT_BORDER_SIZE, r.nextInt(map.getHeight() - 2 * DEFAULT_BORDER_SIZE) + DEFAULT_BORDER_SIZE);
 
+        //Iterate till start is not on a with pixel
+        do {
+            startingPosition = new Position(r.nextInt(map.getWidth() - 2 * DEFAULT_BORDER_SIZE) + DEFAULT_BORDER_SIZE, r.nextInt(map.getHeight() - 2 * DEFAULT_BORDER_SIZE) + DEFAULT_BORDER_SIZE);
+        }
+        while (map.getPixel(startingPosition.getX(), startingPosition.getY()) == ImageService.BLACK_PIXEL_COLOR);
+
+        //Iterate till victory is not on a with pixel
+        do {
+            victoryPosition = new Position(r.nextInt(map.getWidth() - 2 * DEFAULT_BORDER_SIZE) + DEFAULT_BORDER_SIZE, r.nextInt(map.getHeight() - 2 * DEFAULT_BORDER_SIZE) + DEFAULT_BORDER_SIZE);
+        }
+        while (map.getPixel(victoryPosition.getX(), victoryPosition.getY()) == ImageService.BLACK_PIXEL_COLOR);
+
+        //Set the starting position
         currentPosition = startingPosition;
     }
 
