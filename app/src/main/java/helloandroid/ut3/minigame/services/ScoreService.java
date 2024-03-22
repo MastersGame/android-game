@@ -10,12 +10,14 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
-import helloandroid.ut3.minigame.models.Score;
+import helloandroid.ut3.minigame.data.Score;
 
 public class ScoreService {
 
+    private static final String FILE_NAME = "scores.txt";
     private static volatile ScoreService instance;
     private static volatile Context context;
+    private List<Score> scores;
 
     public ScoreService(Context context) {
         ScoreService.context = context;
@@ -39,10 +41,6 @@ public class ScoreService {
         }
     }
 
-    private static final String FILE_NAME = "scores.txt";
-
-    private List<Score> scores;
-
     public void addScore(Score score) {
         scores.add(score);
         saveScoresToFile();
@@ -57,7 +55,7 @@ public class ScoreService {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 String[] parts = line.split(",");
-                scores.add(new Score(new Date(Long.parseLong(parts[0])), parts[1]));
+                scores.add(new Score(new Date(Long.parseLong(parts[0])), Integer.parseInt(parts[1]), Integer.parseInt(parts[2])));
             }
         } catch (IOException e) {
             e.printStackTrace();
