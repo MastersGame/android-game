@@ -9,6 +9,7 @@ import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import helloandroid.ut3.minigame.services.GyroscopeService;
 import helloandroid.ut3.minigame.services.ImageService;
 import helloandroid.ut3.minigame.views.GameView;
 
@@ -34,6 +35,8 @@ public class GameActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putInt("valeur_y", valeur_y);
         editor.apply();
+
+        GyroscopeService.instanciate(this);
 
         setContentView(new GameView(this, valeur_y, photo));
     }

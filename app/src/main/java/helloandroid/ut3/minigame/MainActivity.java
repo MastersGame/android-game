@@ -22,7 +22,6 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putInt("valeur_y", valeur_y);
         editor.apply();*/
-
         setContentView(R.layout.activity_main);
     }
 
