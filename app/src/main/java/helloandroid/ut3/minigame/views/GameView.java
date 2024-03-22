@@ -61,13 +61,11 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             int canvasHeight = canvas.getHeight();
 
             final Bitmap map = gameService.getMap();
-
+            // Calculer les facteurs d'échelle pour l'ajustement
+            float scaleX = (float) canvasWidth / map.getWidth();
+            float scaleY = (float) canvasHeight / map.getHeight();
             // Dessiner le bitmap en étirant pour remplir toute la surface
             if (map != null) {
-                // Calculer les facteurs d'échelle pour l'ajustement
-                float scaleX = (float) canvasWidth / map.getWidth();
-                float scaleY = (float) canvasHeight / map.getHeight();
-
                 // Créer une matrice de transformation
                 android.graphics.Matrix matrix = new android.graphics.Matrix();
                 matrix.setScale(scaleX, scaleY);
@@ -81,7 +79,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             // Dessiner le rectangle rouge
             Paint paint = new Paint();
             paint.setColor(POINT_COLOR);
-            canvas.drawCircle(currentPosition.getX(), currentPosition.getY(), gameService.getRadius(), paint);
+            canvas.drawCircle(currentPosition.getX() * scaleX, currentPosition.getY() * scaleY, gameService.getRadius(), paint);
         }
     }
 

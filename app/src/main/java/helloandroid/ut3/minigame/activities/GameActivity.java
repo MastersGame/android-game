@@ -1,7 +1,5 @@
 package helloandroid.ut3.minigame.activities;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
@@ -15,7 +13,7 @@ import helloandroid.ut3.minigame.views.GameView;
 
 public class GameActivity extends AppCompatActivity {
 
-    GameService gameService = GameService.getInstance();
+    GameService gameService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,19 +22,12 @@ public class GameActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-        SharedPreferences sharedPref =
-                this.getPreferences(Context.MODE_PRIVATE);
-
-        gameService.setup();
-
-        int valeur_y = sharedPref.getInt("valeur_y", 0);
-        valeur_y = (valeur_y + 100) % 400;
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putInt("valeur_y", valeur_y);
-        editor.apply();
-
         VibratorService.instanciate(this);
         GyroscopeService.instanciate(this);
+
+        gameService = GameService.getInstance();
+
+        gameService.setup();
 
         setContentView(new GameView(this));
     }
