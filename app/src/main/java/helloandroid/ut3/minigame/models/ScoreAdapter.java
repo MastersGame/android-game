@@ -1,6 +1,5 @@
 package helloandroid.ut3.minigame.models;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +14,7 @@ import helloandroid.ut3.minigame.R;
 
 public class ScoreAdapter extends RecyclerView.Adapter<ScoreAdapter.ViewHolder> {
 
-    private List<Score> scores;
+    private final List<Score> scores;
 
     public ScoreAdapter(List<Score> scores) {
         this.scores = scores;
@@ -24,7 +23,7 @@ public class ScoreAdapter extends RecyclerView.Adapter<ScoreAdapter.ViewHolder> 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.score_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.score_card, parent, false);
         return new ViewHolder(view);
     }
 
