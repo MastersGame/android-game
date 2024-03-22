@@ -5,24 +5,14 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.util.Log;
 
 public class GyroscopeService implements SensorEventListener {
+    private static final float UPPER_THRESHOLD = 1;
+    private static final float LOWER_THRESHOLD = -1;
     private static volatile GyroscopeService instance;
     private final SensorManager sensorManager;
     private final Sensor gyroscope;
     private Direction direction;
-    private static final float UPPER_THRESHOLD = 1;
-
-    private static final float LOWER_THRESHOLD = -1;
-
-    public enum Direction {
-        UP,
-        DOWN,
-        LEFT,
-        RIGHT,
-        CENTER
-    }
 
     public GyroscopeService(Context context) {
         sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
@@ -31,8 +21,6 @@ public class GyroscopeService implements SensorEventListener {
     }
 
     public static GyroscopeService getInstance() {
-        if (instance == null)
-            throw new NullPointerException("This service was not instanciate");
         return instance;
     }
 
@@ -61,45 +49,50 @@ public class GyroscopeService implements SensorEventListener {
 
         synchronized (this) {
             if (sensor == Sensor.TYPE_ACCELEROMETER) {
-                this.direction = computeDirection(event.values[0],event.values[1]);
+                this.direction = computeDirection(event.values[0], event.values[1]);
             }
         }
     }
 
     @Override
-    public void onAccuracyChanged(Sensor sensor, int i) {}
+    public void onAccuracyChanged(Sensor sensor, int i) {
+    }
 
-    public  Direction computeDirection(float x,float y) {
+    public Direction computeDirection(float x, float y) {
         float x_abs = Math.abs(x);
         float y_abs = Math.abs(y);
 
 
-
-        if((x_abs<UPPER_THRESHOLD && x_abs>LOWER_THRESHOLD) && (y_abs<UPPER_THRESHOLD && y_abs>LOWER_THRESHOLD)){
+        if ((x_abs < UPPER_THRESHOLD && x_abs > LOWER_THRESHOLD) && (y_abs < UPPER_THRESHOLD && y_abs > LOWER_THRESHOLD)) {
             return Direction.CENTER;
         }
 
 
-        if( y_abs > x_abs){
-            if (y < 0){
+        if (y_abs > x_abs) {
+            if (y < 0) {
                 return Direction.UP;
-            }
-            else {
+            } else {
                 return Direction.DOWN;
             }
-        }
-        else {
-            if(x < 0){
+        } else {
+            if (x < 0) {
                 return Direction.RIGHT;
-            }
-            else{
+            } else {
                 return Direction.LEFT;
             }
         }
     }
 
-
-    public Direction getDirection(){
+    public Direction getDirection() {
         return this.direction;
+    }
+
+
+    public enum Direction {
+        UP,
+        DOWN,
+        LEFT,
+        RIGHT,
+        CENTER
     }
 }
