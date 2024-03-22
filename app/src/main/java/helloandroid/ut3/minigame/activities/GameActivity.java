@@ -9,6 +9,7 @@ import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import helloandroid.ut3.minigame.services.GyroscopeService;
 import helloandroid.ut3.minigame.services.ImageService;
 import helloandroid.ut3.minigame.services.VibratorService;
 import helloandroid.ut3.minigame.views.GameView;
@@ -35,6 +36,8 @@ public class GameActivity extends AppCompatActivity {
         editor.apply();
 
         VibratorService.instanciate(this);
+
+        GyroscopeService.instanciate(this);
 
         setContentView(new GameView(this, valeur_y, photo));
     }
