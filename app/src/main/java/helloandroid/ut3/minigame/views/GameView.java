@@ -17,6 +17,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private final GameThread thread;
     private final int y;
     private final Bitmap photo;
+    private final int threshold = 128;
     private int x = 0;
 
     public GameView(Context context, int aY, Bitmap photo) {
