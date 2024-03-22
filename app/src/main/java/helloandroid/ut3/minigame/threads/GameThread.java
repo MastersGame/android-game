@@ -3,6 +3,7 @@ package helloandroid.ut3.minigame.threads;
 import android.graphics.Canvas;
 import android.view.SurfaceHolder;
 
+import helloandroid.ut3.minigame.services.GameService;
 import helloandroid.ut3.minigame.views.GameView;
 
 public class GameThread extends Thread {
@@ -10,6 +11,8 @@ public class GameThread extends Thread {
     private final SurfaceHolder surfaceHolder;
     private final GameView gameView;
     private boolean running = false;
+
+    private final GameService gameService = GameService.getInstance();
 
     public GameThread(SurfaceHolder surfaceHolder, GameView gameView) {
         super();
@@ -30,8 +33,8 @@ public class GameThread extends Thread {
             try {
                 canvas = this.surfaceHolder.lockCanvas();
                 synchronized (surfaceHolder) {
-                    this.gameView.update();
                     this.gameView.draw(canvas);
+                    gameService.tick();
                 }
             } catch (Exception e) {
             } finally {
