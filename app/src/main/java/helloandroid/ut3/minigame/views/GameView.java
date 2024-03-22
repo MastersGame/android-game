@@ -1,6 +1,7 @@
 package helloandroid.ut3.minigame.views;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -11,6 +12,7 @@ import android.view.SurfaceView;
 
 import androidx.annotation.NonNull;
 
+import helloandroid.ut3.minigame.activities.VictoryActivity;
 import helloandroid.ut3.minigame.data.Position;
 import helloandroid.ut3.minigame.services.GameService;
 import helloandroid.ut3.minigame.threads.GameThread;
@@ -101,11 +103,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             victoryPaint.setColor(VICTORY_POINT_COLOR);
             canvas.drawCircle(victoryPosition.getX() * scaleX, victoryPosition.getY() * scaleY, gameService.getVictoryRadius(), victoryPaint);
         }
-
-
     }
 
     public void showVictory() {
-        //TODO : Go to victory screen?
+        Intent intent = new Intent(context, VictoryActivity.class);
+        context.startActivity(intent);
     }
 }
