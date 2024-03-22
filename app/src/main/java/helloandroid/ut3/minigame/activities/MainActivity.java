@@ -1,10 +1,12 @@
-package helloandroid.ut3.minigame;
+package helloandroid.ut3.minigame.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import helloandroid.ut3.minigame.R;
 
 public class MainActivity extends AppCompatActivity {
     @Override

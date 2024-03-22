@@ -1,4 +1,4 @@
-package helloandroid.ut3.minigame;
+package helloandroid.ut3.minigame.activities;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -17,7 +17,6 @@ import helloandroid.ut3.minigame.views.GameView;
 public class GameActivity extends AppCompatActivity {
 
     ImageService imageService;
-    Bitmap flattenedVersion;
     Bitmap photo;
 
     @Override
@@ -27,8 +26,7 @@ public class GameActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        photo = imageService.getPhoto();
-        flattenedVersion = ImageService.flattenedVersion(photo, 128);
+        photo = imageService.getThresholdedBitmap();
         SharedPreferences sharedPref =
                 this.getPreferences(Context.MODE_PRIVATE);
         int valeur_y = sharedPref.getInt("valeur_y", 0);
