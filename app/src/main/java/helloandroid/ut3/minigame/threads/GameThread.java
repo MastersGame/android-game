@@ -32,8 +32,8 @@ public class GameThread extends Thread {
             try {
                 canvas = this.surfaceHolder.lockCanvas();
                 synchronized (surfaceHolder) {
-                    this.gameView.draw(canvas);
                     gameService.tick();
+                    gameView.draw(canvas);
                     if (gameService.isVictory()) {
                         gameView.showVictory();
                     }

@@ -34,7 +34,7 @@ public class VibratorService {
 
     public void vibrate() {
         vibrator.vibrate(VibrationEffect.createOneShot(
-                1000,
+                250,
                 VibrationEffect.DEFAULT_AMPLITUDE
         ));
     }
