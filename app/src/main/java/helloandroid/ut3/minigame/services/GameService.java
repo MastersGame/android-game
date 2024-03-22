@@ -69,6 +69,10 @@ public class GameService {
         Position nextPosition = new Position(nextX, nextY);
 
         //Check collision
+        int nextPositionPixel = map.getPixel(nextPosition.getX(), nextPosition.getY());
+        if (nextPositionPixel == ImageService.BLACK_PIXEL_COLOR) {
+            nextPosition = DEFAULT_STARTING_POSITION;
+        }
 
         //Set the new currentPosition
         currentPosition = nextPosition;

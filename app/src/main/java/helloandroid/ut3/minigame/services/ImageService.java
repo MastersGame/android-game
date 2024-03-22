@@ -6,8 +6,9 @@ import android.graphics.Color;
 import java.util.Optional;
 
 public class ImageService {
+    public static final int WHITE_PIXEL_COLOR = Color.WHITE;
+    public static final int BLACK_PIXEL_COLOR = Color.BLACK;
     private static volatile ImageService instance;
-
     private Bitmap photo;
 
     private Bitmap thresholdedBitmap;
@@ -35,7 +36,7 @@ public class ImageService {
                 int pixel = greyVersion.getPixel(x, y);
                 int greyValue = Color.red(pixel);
 
-                int newPixelColor = (greyValue > threshold) ? Color.WHITE : Color.BLACK;
+                int newPixelColor = (greyValue > threshold) ? WHITE_PIXEL_COLOR : BLACK_PIXEL_COLOR;
 
                 flattenedVersion.setPixel(x, y, newPixelColor);
             }
