@@ -27,7 +27,7 @@ public class VictoryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+
         musicService = MusicService.getInstance();
         musicService.changeSound(this, R.raw.victory);
         musicService.play();
@@ -44,7 +44,7 @@ public class VictoryActivity extends AppCompatActivity {
             ScoreService.instanciate(this);
         }
         ScoreService.getInstance().addScore(newScore);
-        textView.setText("Vous avez gagné, votre score était de " + newScore.getScore() + " en " + newScore.getNbTentatives() + " tentatives.");
+        textView.setText("Vous avez gagné, votre score était de " + newScore.getScore() + " secondes en " + newScore.getNbTentatives() + " tentatives.");
 
         Button button = findViewById(R.id.button1);
         button.setOnClickListener(new View.OnClickListener() {

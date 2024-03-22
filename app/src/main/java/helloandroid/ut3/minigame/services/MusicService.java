@@ -5,10 +5,11 @@ import android.media.MediaPlayer;
 
 public class MusicService {
 
+    private static final float DEFAULT_REPLAY_SPEED = 1.0f;
+    private static final float STEP = 0.1f;
     private static volatile MusicService instance;
-    private final float step = 0.1f;
     private MediaPlayer mediaPlayer;
-    private float replaySpeed = 1.0f;
+    private float replaySpeed = DEFAULT_REPLAY_SPEED;
 
 
     private MusicService() {
@@ -34,6 +35,7 @@ public class MusicService {
     public void changeSound(Context context, int i) {
         if (mediaPlayer != null) {
             stop();
+            replaySpeed = DEFAULT_REPLAY_SPEED;
         }
         mediaPlayer = MediaPlayer.create(context, i);
         mediaPlayer.setPlaybackParams(mediaPlayer.getPlaybackParams().setSpeed(replaySpeed));
@@ -58,7 +60,7 @@ public class MusicService {
 
     public void speedUp() {
         if (replaySpeed < 2) {
-            replaySpeed += step;
+            replaySpeed += STEP;
         }
     }
 
