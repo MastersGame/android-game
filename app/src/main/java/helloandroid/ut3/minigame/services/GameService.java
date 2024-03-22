@@ -18,6 +18,8 @@ public class GameService {
     private final int victoryRadius;
     private final ImageService imageService = ImageService.getInstance();
     private final GyroscopeService gyroscopeService = GyroscopeService.getInstance();
+
+    private int collisionCounter;
   
     private int timer = 0;
     private final VibratorService vibratorService = VibratorService.getInstance();
@@ -96,6 +98,9 @@ public class GameService {
         //Check collision
         int nextPositionPixel = map.getPixel(nextPosition.getX(), nextPosition.getY());
         if (nextPositionPixel == ImageService.BLACK_PIXEL_COLOR) {
+            MusicService.getInstance().speedUp();
+            MusicService.getInstance().playonLoop();
+
             if (vibratorService.hasVibrator()) {
                 vibratorService.vibrate();
             }
@@ -137,4 +142,6 @@ public class GameService {
     public void setTimer(int timer) {
         this.timer = timer;
     }
+
+
 }
