@@ -7,6 +7,7 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 import helloandroid.ut3.minigame.R;
+import helloandroid.ut3.minigame.ScoreActivity;
 
 public class MainActivity extends AppCompatActivity {
     @Override
@@ -21,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showScores(View view) {
-        //Intent intent = new Intent(this, ScoresActivity.class);
-        //startActivity(intent);
+        Intent intent = new Intent(this, ScoreActivity.class);
+        startActivity(intent);
     }
 }

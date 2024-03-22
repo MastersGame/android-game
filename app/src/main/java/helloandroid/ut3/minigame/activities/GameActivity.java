@@ -1,7 +1,5 @@
 package helloandroid.ut3.minigame.activities;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,11 +14,12 @@ import helloandroid.ut3.minigame.R;
 import helloandroid.ut3.minigame.services.GameService;
 import helloandroid.ut3.minigame.services.GyroscopeService;
 import helloandroid.ut3.minigame.services.VibratorService;
+import helloandroid.ut3.minigame.views.GameView;
 
 public class GameActivity extends AppCompatActivity {
 
+    GameService gameService;
     private final Handler handler = new Handler();
-    GameService gameService = GameService.getInstance();
     private TextView timerTextView;
     private long startTime;
     private final Runnable updateTimerRunnable = new Runnable() {
@@ -45,16 +44,6 @@ public class GameActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.game);
-        SharedPreferences sharedPref =
-                this.getPreferences(Context.MODE_PRIVATE);
-
-        gameService.setup();
-
-        int valeur_y = sharedPref.getInt("valeur_y", 0);
-        valeur_y = (valeur_y + 100) % 400;
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putInt("valeur_y", valeur_y);
-        editor.apply();
         timerTextView = findViewById(R.id.timerTextView);
         timerTextView.setTextColor(Color.RED);
         startTime = SystemClock.elapsedRealtime();
@@ -63,5 +52,9 @@ public class GameActivity extends AppCompatActivity {
 
         VibratorService.instanciate(this);
         GyroscopeService.instanciate(this);
+
+        gameService = GameService.getInstance();
+
+        gameService.setup();
     }
 }
