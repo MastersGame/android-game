@@ -2,13 +2,13 @@ package helloandroid.ut3.minigame.views;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import androidx.annotation.NonNull;
 
+import helloandroid.ut3.minigame.R;
 import helloandroid.ut3.minigame.threads.GameThread;
 
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
@@ -54,9 +54,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     public void draw(Canvas canvas) {
         super.draw(canvas);
         if (canvas != null) {
-            canvas.drawColor(Color.WHITE);
             Paint paint = new Paint();
-            paint.setColor(Color.rgb(250, 0, 0));
+            paint.setColor(getResources().getColor(R.color.md_theme_error, null));
             canvas.drawRect(x, y, x + 100, y + 200, paint);
         }
     }
