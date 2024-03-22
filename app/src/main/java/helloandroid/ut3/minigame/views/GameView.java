@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -22,6 +23,13 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     public GameView(Context context) {
         super(context);
+        getHolder().addCallback(this);
+        thread = new GameThread(getHolder(), this);
+        setFocusable(true);
+    }
+
+    public GameView(Context context, AttributeSet set) {
+        super(context, set);
         getHolder().addCallback(this);
         thread = new GameThread(getHolder(), this);
         setFocusable(true);
@@ -82,6 +90,4 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             canvas.drawCircle(currentPosition.getX() * scaleX, currentPosition.getY() * scaleY, gameService.getRadius(), paint);
         }
     }
-
-
 }
