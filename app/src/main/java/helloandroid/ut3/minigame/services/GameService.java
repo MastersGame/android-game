@@ -18,8 +18,10 @@ public class GameService {
     private final int victoryRadius;
     private final ImageService imageService = ImageService.getInstance();
     private final GyroscopeService gyroscopeService = GyroscopeService.getInstance();
+  
+    private int timer = 0;
     private final VibratorService vibratorService = VibratorService.getInstance();
-    private int timer;
+
     private Bitmap map;
     private Position currentPosition;
 
