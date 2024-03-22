@@ -27,13 +27,12 @@ public class VictoryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-        MusicService.instanciate(this, R.raw.victory);
+        
         musicService = MusicService.getInstance();
+        musicService.changeSound(this, R.raw.victory);
+        musicService.play();
 
         gameService = GameService.getInstance();
-
 
         setContentView(R.layout.victory);
 
@@ -41,7 +40,9 @@ public class VictoryActivity extends AppCompatActivity {
         TextView textView = findViewById(R.id.WinTextView);
 
         Score newScore = new Score(new Date(), gameService.getTimer(), gameService.getNbTentatives());
-        ScoreService.instanciate(this);
+        if (ScoreService.getInstance() == null) {
+            ScoreService.instanciate(this);
+        }
         ScoreService.getInstance().addScore(newScore);
         textView.setText("Vous avez gagné, votre score était de " + newScore.getScore() + " en " + newScore.getNbTentatives() + " tentatives.");
 

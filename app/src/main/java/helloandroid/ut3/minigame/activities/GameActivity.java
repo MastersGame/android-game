@@ -46,11 +46,22 @@ public class GameActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        VibratorService.instanciate(this);
-        GyroscopeService.instanciate(this);
+        if (VibratorService.getInstance() == null) {
+            VibratorService.instanciate(this);
+        }
 
-        musicService = new MusicService(this,R.raw.maxwell);
+        if (GyroscopeService.getInstance() == null) {
+            GyroscopeService.instanciate(this);
+        }
+
+
+        if (MusicService.getInstance() == null) {
+            MusicService.instanciate();
+        }
+        musicService = MusicService.getInstance();
+        musicService.changeSound(this, R.raw.maxwell);
         musicService.playonLoop();
+
 
         gameService = GameService.getInstance();
         gameService.setup();

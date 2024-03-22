@@ -17,7 +17,7 @@ public class ScoreService {
     private static final String FILE_NAME = "scores.txt";
     private static volatile ScoreService instance;
     private static volatile Context context;
-    private List<Score> scores;
+    private final List<Score> scores;
 
     public ScoreService(Context context) {
         ScoreService.context = context;
@@ -26,8 +26,6 @@ public class ScoreService {
     }
 
     public static ScoreService getInstance() {
-        if (instance == null)
-            throw new NullPointerException("This service was not instanciate");
         return instance;
     }
 

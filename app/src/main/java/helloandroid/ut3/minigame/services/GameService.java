@@ -99,6 +99,9 @@ public class GameService {
         //Check collision
         int nextPositionPixel = map.getPixel(nextPosition.getX(), nextPosition.getY());
         if (nextPositionPixel == ImageService.BLACK_PIXEL_COLOR) {
+            MusicService.getInstance().speedUp();
+            MusicService.getInstance().playonLoop();
+
             nbTentatives++;
             if (vibratorService.hasVibrator()) {
                 vibratorService.vibrate();
@@ -142,4 +145,6 @@ public class GameService {
     public void setTimer(int timer) {
         this.timer = timer;
     }
+
+
 }

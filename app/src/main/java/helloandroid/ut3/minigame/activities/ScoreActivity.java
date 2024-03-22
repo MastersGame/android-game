@@ -40,7 +40,10 @@ public class ScoreActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score);
 
-        ScoreService.instanciate(this);
+        if (ScoreService.getInstance() == null) {
+            ScoreService.instanciate(this);
+        }
+
         scoreService = ScoreService.getInstance();
         allScores = scoreService.getScores();
         filteredScores = new ArrayList<>(allScores);

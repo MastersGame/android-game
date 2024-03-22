@@ -13,8 +13,6 @@ public class VibratorService {
     }
 
     public static VibratorService getInstance() {
-        if (instance == null)
-            throw new NullPointerException("This service was not instanciate");
         return instance;
     }
 
