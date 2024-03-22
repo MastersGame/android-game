@@ -11,7 +11,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 
+import java.util.Date;
+
 import helloandroid.ut3.minigame.R;
+import helloandroid.ut3.minigame.data.Score;
 import helloandroid.ut3.minigame.services.GameService;
 import helloandroid.ut3.minigame.services.MusicService;
 
@@ -25,8 +28,7 @@ public class VictoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
 
-
-        MusicService.instanciate(this,R.raw.victory);
+        MusicService.instanciate(this, R.raw.victory);
         musicService = MusicService.getInstance();
 
         gameService = GameService.getInstance();
@@ -37,9 +39,9 @@ public class VictoryActivity extends AppCompatActivity {
 
         TextView textView = findViewById(R.id.WinTextView);
 
-        int score = gameService.getTimer();
+        Score newScore = new Score(new Date(), gameService.getTimer(), gameService.getNbTentatives());
 
-        textView.setText("Vous avez gagné, votre score était de " + score);
+        textView.setText("Vous avez gagné, votre score était de " + newScore.getScore() + " en " + newScore.getNbTentatives() + " tentatives.");
 
         Button button = findViewById(R.id.button1);
         button.setOnClickListener(new View.OnClickListener() {

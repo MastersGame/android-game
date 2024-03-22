@@ -11,22 +11,17 @@ public class GameService {
     private static final int DEFAULT_STEP = 1;
 
     private static final int DEFAULT_BORDER_SIZE = 10;
-
-
     private static volatile GameService instance;
     private final int radius;
     private final int victoryRadius;
     private final ImageService imageService = ImageService.getInstance();
     private final GyroscopeService gyroscopeService = GyroscopeService.getInstance();
-  
-    private int timer = 0;
     private final VibratorService vibratorService = VibratorService.getInstance();
-
+    private int nbTentatives;
+    private int timer = 0;
     private Bitmap map;
     private Position currentPosition;
-
     private Position victoryPosition;
-
     private Position startingPosition;
 
     private GameService() {
@@ -43,6 +38,14 @@ public class GameService {
             }
         }
         return instance;
+    }
+
+    public int getNbTentatives() {
+        return nbTentatives;
+    }
+
+    public void setNbTentatives(int nbTentatives) {
+        this.nbTentatives = nbTentatives;
     }
 
     public int getRadius() {
@@ -96,6 +99,7 @@ public class GameService {
         //Check collision
         int nextPositionPixel = map.getPixel(nextPosition.getX(), nextPosition.getY());
         if (nextPositionPixel == ImageService.BLACK_PIXEL_COLOR) {
+            nbTentatives++;
             if (vibratorService.hasVibrator()) {
                 vibratorService.vibrate();
             }
@@ -113,6 +117,7 @@ public class GameService {
     public void setup() {
         map = imageService.getThresholdedBitmap();
         Random r = new Random();
+        nbTentatives = 0;
 
         //Iterate till start is not on a with pixel
         do {
