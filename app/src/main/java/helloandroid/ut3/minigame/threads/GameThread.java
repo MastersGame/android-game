@@ -10,9 +10,8 @@ public class GameThread extends Thread {
     private static final int TIMEOUT_RUN = 160;
     private final SurfaceHolder surfaceHolder;
     private final GameView gameView;
-    private boolean running = false;
-
     private final GameService gameService = GameService.getInstance();
+    private boolean running = false;
 
     public GameThread(SurfaceHolder surfaceHolder, GameView gameView) {
         super();
@@ -35,6 +34,9 @@ public class GameThread extends Thread {
                 synchronized (surfaceHolder) {
                     this.gameView.draw(canvas);
                     gameService.tick();
+                    if (gameService.isVictory()) {
+                        gameView.showVictory();
+                    }
                 }
             } catch (Exception e) {
             } finally {
