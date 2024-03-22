@@ -12,7 +12,7 @@ public class GameService {
     private final int radius;
     private final ImageService imageService = ImageService.getInstance();
     private final GyroscopeService gyroscopeService = GyroscopeService.getInstance();
-    private int timer;
+    private int timer = 0;
     private Bitmap map;
     private Position currentPosition;
 
