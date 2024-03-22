@@ -19,7 +19,7 @@ import java.util.Date;
 import java.util.List;
 
 import helloandroid.ut3.minigame.R;
-import helloandroid.ut3.minigame.models.Score;
+import helloandroid.ut3.minigame.data.Score;
 import helloandroid.ut3.minigame.services.ScoreService;
 import helloandroid.ut3.minigame.views.ScoreCardView;
 
@@ -131,6 +131,7 @@ public class ScoreActivity extends AppCompatActivity {
             ScoreCardView cardView = new ScoreCardView(this);
             cardView.setScoreValue(score.getScore());
             cardView.setScoreDate(formatDateAndHours(score.getDate().getTime()));
+            cardView.setScoreNbTentatives(score.getNbTentatives());
             scoreContainer.addView(cardView);
         }
     }

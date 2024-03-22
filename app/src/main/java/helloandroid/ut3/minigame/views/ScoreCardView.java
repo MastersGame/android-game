@@ -49,4 +49,8 @@ public class ScoreCardView extends CardView {
     public void setScoreDate(String date) {
         dateView.setText(date);
     }
+
+    public void setScoreNbTentatives(int nbTentatives) {
+        valueView.setText(String.valueOf(nbTentatives) + " tentatives");
+    }
 }
