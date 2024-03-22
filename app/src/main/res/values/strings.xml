@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">MiniGame</string>
+    <string name="game_logo">game logo</string>
+    <string name="photosnap">Photosnap</string>
+    <string name="commencer">Commencer</string>
+    <string name="scores">Scores</string>
 </resources>

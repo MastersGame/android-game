@@ -1,20 +1,15 @@
 package helloandroid.ut3.minigame;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.Window;
-import android.view.WindowManager;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import helloandroid.ut3.minigame.views.GameView;
 
 public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+/*
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -25,8 +20,18 @@ public class MainActivity extends AppCompatActivity {
         valeur_y = (valeur_y + 100) % 400;
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putInt("valeur_y", valeur_y);
-        editor.apply();
+        editor.apply();*/
 
-        setContentView(new GameView(this, valeur_y));
+        setContentView(R.layout.activity_main);
+    }
+
+    public void startGame(View view) {
+        //Intent intent = new Intent(this, GameActivity.class);
+        //startActivity(intent);
+    }
+
+    public void showScores(View view) {
+        //Intent intent = new Intent(this, ScoresActivity.class);
+        //startActivity(intent);
     }
 }
