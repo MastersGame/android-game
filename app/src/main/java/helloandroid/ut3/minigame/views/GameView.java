@@ -78,7 +78,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             // Dessiner le rectangle rouge
             Paint paint = new Paint();
             paint.setColor(Color.rgb(250, 0, 0));
-            canvas.drawRect(x, y, x + 100, y + 200, paint);
+            canvas.drawCircle(x, y, 50, paint);
         }
     }
 
