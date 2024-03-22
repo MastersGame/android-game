@@ -10,12 +10,14 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
-import helloandroid.ut3.minigame.models.Score;
+import helloandroid.ut3.minigame.data.Score;
 
 public class ScoreService {
 
+    private static final String FILE_NAME = "scores.txt";
     private static volatile ScoreService instance;
     private static volatile Context context;
+    private final List<Score> scores;
 
     public ScoreService(Context context) {
         ScoreService.context = context;
@@ -24,8 +26,6 @@ public class ScoreService {
     }
 
     public static ScoreService getInstance() {
-        if (instance == null)
-            throw new NullPointerException("This service was not instanciate");
         return instance;
     }
 
@@ -38,10 +38,6 @@ public class ScoreService {
             }
         }
     }
-
-    private static final String FILE_NAME = "scores.txt";
-
-    private List<Score> scores;
 
     public void addScore(Score score) {
         scores.add(score);
@@ -57,7 +53,7 @@ public class ScoreService {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 String[] parts = line.split(",");
-                scores.add(new Score(new Date(Long.parseLong(parts[0])), parts[1]));
+                scores.add(new Score(new Date(Long.parseLong(parts[0])), Integer.parseInt(parts[1]), Integer.parseInt(parts[2])));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -67,7 +63,7 @@ public class ScoreService {
     private void saveScoresToFile() {
         try (PrintWriter writer = new PrintWriter(new File(ScoreService.context.getFilesDir(), FILE_NAME))) {
             for (Score score : scores) {
-                writer.println(score.getDate().getTime() + "," + score.getScore());
+                writer.println(score.getDate().getTime() + "," + score.getScore() + "," + score.getNbTentatives());
             }
         } catch (IOException e) {
             e.printStackTrace();

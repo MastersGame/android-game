@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import helloandroid.ut3.minigame.R;
 import helloandroid.ut3.minigame.services.GameService;
 import helloandroid.ut3.minigame.services.GyroscopeService;
+import helloandroid.ut3.minigame.services.MusicService;
 import helloandroid.ut3.minigame.services.VibratorService;
 
 public class GameActivity extends AppCompatActivity {
@@ -20,6 +21,7 @@ public class GameActivity extends AppCompatActivity {
     private final Handler handler = new Handler();
     GameService gameService;
     private TextView timerTextView;
+    private MusicService musicService;
     private long startTime;
     private final Runnable updateTimerRunnable = new Runnable() {
         @Override
@@ -44,8 +46,22 @@ public class GameActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        VibratorService.instanciate(this);
-        GyroscopeService.instanciate(this);
+        if (VibratorService.getInstance() == null) {
+            VibratorService.instanciate(this);
+        }
+
+        if (GyroscopeService.getInstance() == null) {
+            GyroscopeService.instanciate(this);
+        }
+
+
+        if (MusicService.getInstance() == null) {
+            MusicService.instanciate();
+        }
+        musicService = MusicService.getInstance();
+        musicService.changeSound(this, R.raw.maxwell);
+        musicService.playonLoop();
+
 
         gameService = GameService.getInstance();
         gameService.setup();
@@ -63,6 +79,8 @@ public class GameActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         // Arrêter la mise à jour du chronomètre pour éviter les fuites de mémoire
+        musicService.stop();
         handler.removeCallbacks(updateTimerRunnable);
+
     }
 }

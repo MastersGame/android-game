@@ -1,6 +1,7 @@
 package helloandroid.ut3.minigame.views;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -11,6 +12,7 @@ import android.view.SurfaceView;
 
 import androidx.annotation.NonNull;
 
+import helloandroid.ut3.minigame.activities.VictoryActivity;
 import helloandroid.ut3.minigame.data.Position;
 import helloandroid.ut3.minigame.services.GameService;
 import helloandroid.ut3.minigame.threads.GameThread;
@@ -20,19 +22,25 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private final GameService gameService = GameService.getInstance();
     private final int POINT_COLOR = Color.rgb(250, 0, 0);
 
+    private final int VICTORY_POINT_COLOR = Color.rgb(0, 250, 0);
 
-    public GameView(Context context) {
-        super(context);
+    private final Context context;
+
+
+    public GameView(Context aContext) {
+        super(aContext);
         getHolder().addCallback(this);
         thread = new GameThread(getHolder(), this);
         setFocusable(true);
+        context = aContext;
     }
 
-    public GameView(Context context, AttributeSet set) {
-        super(context, set);
+    public GameView(Context aContext, AttributeSet set) {
+        super(aContext, set);
         getHolder().addCallback(this);
         thread = new GameThread(getHolder(), this);
         setFocusable(true);
+        context = aContext;
     }
 
     @Override
@@ -83,11 +91,22 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             }
 
             final Position currentPosition = gameService.getCurrentPosition();
+            final Position victoryPosition = gameService.getVictoryPosition();
 
             // Dessiner le rectangle rouge
             Paint paint = new Paint();
             paint.setColor(POINT_COLOR);
             canvas.drawCircle(currentPosition.getX() * scaleX, currentPosition.getY() * scaleY, gameService.getRadius(), paint);
+
+            //Dessiner le point de victoire
+            Paint victoryPaint = new Paint();
+            victoryPaint.setColor(VICTORY_POINT_COLOR);
+            canvas.drawCircle(victoryPosition.getX() * scaleX, victoryPosition.getY() * scaleY, gameService.getVictoryRadius(), victoryPaint);
         }
+    }
+
+    public void showVictory() {
+        Intent intent = new Intent(context, VictoryActivity.class);
+        context.startActivity(intent);
     }
 }
