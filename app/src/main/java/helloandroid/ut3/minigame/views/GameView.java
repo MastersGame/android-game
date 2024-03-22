@@ -52,7 +52,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             retry = false;
         }
     }
-    
+
     @Override
     public void draw(Canvas canvas) {
         super.draw(canvas);
@@ -81,7 +81,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             canvas.drawRect(x, y, x + 100, y + 200, paint);
         }
     }
-
 
     public void update() {
         x = (x + 1) % 300;
