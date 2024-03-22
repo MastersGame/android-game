@@ -11,9 +11,15 @@ public class GyroscopeService implements SensorEventListener {
     private static volatile GyroscopeService instance;
     private final SensorManager sensorManager;
     private final Sensor gyroscope;
-    private float x;
-    private float y;
-    private float z;
+    private Direction direction;
+
+
+    public enum Direction {
+        UP,
+        DOWN,
+        LEFT,
+        RIGHT
+    }
 
     public GyroscopeService(Context context) {
         sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
@@ -49,21 +55,15 @@ public class GyroscopeService implements SensorEventListener {
     public void onSensorChanged(SensorEvent event) {
         int sensor = event.sensor.getType();
         float[] values = event.values;
-        float xt = 0;
-        float yt = 0;
-        float zt = 0;
+
         synchronized (this) {
             if (sensor == Sensor.TYPE_ACCELEROMETER) {
-                xt = values[0];
-                yt = values[1];
-                zt = values[2];
+                this.direction = computeDirection(event.values[0],event.values[1]);
             }
         }
-        this.x = xt;
-        this.y = yt;
-        this.z = zt;
 
-        Log.d("PERSO", x + " " + y + " " + z);
+
+        Log.d("PERSO", "Direction : " + this.direction);
     }
 
     @Override
@@ -71,7 +71,30 @@ public class GyroscopeService implements SensorEventListener {
 
     }
 
-    public float[] getData() {
-        return new float[]{x, y, z};
+    public  Direction computeDirection(float x,float y) {
+        float x_abs = Math.abs(x);
+        float y_abs = Math.abs(y);
+
+        if( y_abs > x_abs){
+            if (y < 0){
+                return Direction.UP;
+            }
+            else {
+                return Direction.DOWN;
+            }
+        }
+        else {
+            if(x < 0){
+                return Direction.RIGHT;
+            }
+            else{
+                return Direction.LEFT;
+            }
+        }
+    }
+
+
+    public Direction getDirection(){
+        return this.direction;
     }
 }
