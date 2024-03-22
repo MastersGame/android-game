@@ -61,15 +61,10 @@ public class GyroscopeService implements SensorEventListener {
                 this.direction = computeDirection(event.values[0],event.values[1]);
             }
         }
-
-
-        Log.d("PERSO", "Direction : " + this.direction);
     }
 
     @Override
-    public void onAccuracyChanged(Sensor sensor, int i) {
-
-    }
+    public void onAccuracyChanged(Sensor sensor, int i) {}
 
     public  Direction computeDirection(float x,float y) {
         float x_abs = Math.abs(x);
