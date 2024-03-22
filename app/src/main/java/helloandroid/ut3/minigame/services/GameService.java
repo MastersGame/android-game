@@ -7,9 +7,12 @@ import helloandroid.ut3.minigame.data.Position;
 public class GameService {
     private static final int DEFAULT_RADIUS = 10;
     private static final Position DEFAULT_STARTING_POSITION = new Position(5 + DEFAULT_RADIUS, 5 + DEFAULT_RADIUS);
+    private static final int DEFAULT_STEP = 1;
     private static volatile GameService instance;
     private final int radius;
     private final ImageService imageService = ImageService.getInstance();
+
+    private final GyroscopeService gyroscopeService = GyroscopeService.getInstance();
     private Bitmap map;
     private Position currentPosition;
 
@@ -42,8 +45,28 @@ public class GameService {
     }
 
     public void tick() {
+        Integer nextX = null;
+        Integer nextY = null;
+        switch (gyroscopeService.getDirection()) {
+            case UP:
+                nextX = currentPosition.getX();
+                nextY = ((currentPosition.getY() - DEFAULT_STEP) + map.getHeight()) % map.getHeight();
+                break;
+            case DOWN:
+                nextX = currentPosition.getX();
+                nextY = ((currentPosition.getY() + DEFAULT_STEP) + map.getHeight()) % map.getHeight();
+                break;
+            case LEFT:
+                nextX = ((currentPosition.getX() - DEFAULT_STEP) + map.getWidth()) % map.getWidth();
+                nextY = currentPosition.getY();
+                break;
+            case RIGHT:
+                nextX = ((currentPosition.getX() + DEFAULT_STEP) + map.getWidth()) % map.getWidth();
+                nextY = currentPosition.getY();
+                break;
+        }
         //Compute next position
-        Position nextPosition = new Position((currentPosition.getX() + 10) % 300, currentPosition.getY());
+        Position nextPosition = new Position(nextX, nextY);
 
         //Check collision
 
