@@ -11,9 +11,14 @@ public class MusicService {
     private static volatile MusicService instance;
     private MediaPlayer mediaPlayer;
 
+    private boolean running = false;
+    private float replaySpeed = 1.0f;
+    private float step = 0.1f;
+
+
     public MusicService(Context context, int i){
         mediaPlayer = MediaPlayer.create(context, i);
-
+        mediaPlayer.setPlaybackParams(mediaPlayer.getPlaybackParams().setSpeed(replaySpeed));
     }
 
     public static MusicService getInstance() {
@@ -41,12 +46,18 @@ public class MusicService {
     }
 
     public void play(){
+
+        mediaPlayer.setPlaybackParams(mediaPlayer.getPlaybackParams().setSpeed(replaySpeed));
         mediaPlayer.start();
+        running = true;
     }
 
     public void playonLoop(){
+
+        mediaPlayer.setPlaybackParams(mediaPlayer.getPlaybackParams().setSpeed(replaySpeed));
         mediaPlayer.setLooping(true); // Set looping
         mediaPlayer.start(); // Start playing
+        running = true;
     }
 
     public void pause(){
@@ -54,8 +65,18 @@ public class MusicService {
     }
     public void stop(){
         mediaPlayer.stop();
+        running = false;
     }
 
 
+    public void speedUp(){
+        if(replaySpeed < 2){
+            replaySpeed += step;
+        }
+    }
+    public void slowDown(){
+        replaySpeed -= step;
+
+    }
 
 }
