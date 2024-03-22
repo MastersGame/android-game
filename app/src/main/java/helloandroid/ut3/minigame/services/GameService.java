@@ -52,6 +52,6 @@ public class GameService {
     }
 
     public void setup() {
-        map = ImageService.flattenedVersion(imageService.getPhoto(), 128);
+        map = imageService.getThresholdedBitmap();
     }
 }

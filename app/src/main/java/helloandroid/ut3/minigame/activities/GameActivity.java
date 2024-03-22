@@ -2,25 +2,20 @@ package helloandroid.ut3.minigame.activities;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import helloandroid.ut3.minigame.services.GyroscopeService;
-import helloandroid.ut3.minigame.services.ImageService;
 import helloandroid.ut3.minigame.services.GameService;
+import helloandroid.ut3.minigame.services.GyroscopeService;
 import helloandroid.ut3.minigame.services.VibratorService;
 import helloandroid.ut3.minigame.views.GameView;
 
 public class GameActivity extends AppCompatActivity {
 
     GameService gameService = GameService.getInstance();
-    Bitmap flattenedVersion;
-    ImageService imageService;
-    Bitmap photo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +23,7 @@ public class GameActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        photo = imageService.getThresholdedBitmap();
+
         SharedPreferences sharedPref =
                 this.getPreferences(Context.MODE_PRIVATE);
 
@@ -39,12 +34,10 @@ public class GameActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putInt("valeur_y", valeur_y);
         editor.apply();
-        Bitmap map = gameService.getMap();
-        VibratorService.instanciate(this);
 
+        VibratorService.instanciate(this);
         GyroscopeService.instanciate(this);
 
-        setContentView(new GameView(this, valeur_y, photo));
         setContentView(new GameView(this));
     }
 }
