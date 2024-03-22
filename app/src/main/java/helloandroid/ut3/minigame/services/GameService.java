@@ -18,8 +18,8 @@ public class GameService {
     private final int radius;
     private final int victoryRadius;
     private final ImageService imageService = ImageService.getInstance();
-
     private final GyroscopeService gyroscopeService = GyroscopeService.getInstance();
+    private int timer;
     private Bitmap map;
     private Position currentPosition;
 
@@ -82,6 +82,9 @@ public class GameService {
             case RIGHT:
                 nextX = ((currentPosition.getX() + DEFAULT_STEP) + map.getWidth()) % map.getWidth();
                 nextY = currentPosition.getY();
+            case CENTER:
+                nextX = currentPosition.getY();
+                nextY = currentPosition.getY();
                 break;
         }
         //Compute next position
@@ -109,5 +112,13 @@ public class GameService {
         victoryPosition = new Position(r.nextInt(map.getHeight() - 2 * DEFAULT_BORDER_SIZE + DEFAULT_BORDER_SIZE), r.nextInt(map.getHeight() - 2 * DEFAULT_BORDER_SIZE + DEFAULT_BORDER_SIZE));
 
         currentPosition = startingPosition;
+    }
+
+    public int getTimer() {
+        return timer;
+    }
+
+    public void setTimer(int timer) {
+        this.timer = timer;
     }
 }

@@ -22,7 +22,7 @@ public class PhotoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.game);
+        setContentView(R.layout.photo);
         imageService = ImageService.getInstance();
         photo = findViewById(R.id.photo);
         takePictureLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
