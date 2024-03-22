@@ -49,8 +49,11 @@ public class GameActivity extends AppCompatActivity {
         VibratorService.instanciate(this);
         GyroscopeService.instanciate(this);
 
-        musicService = new MusicService(this,R.raw.maxwell);
+
+        MusicService.instanciate(this,R.raw.maxwell);
+        musicService = MusicService.getInstance();
         musicService.playonLoop();
+
 
         gameService = GameService.getInstance();
         gameService.setup();
