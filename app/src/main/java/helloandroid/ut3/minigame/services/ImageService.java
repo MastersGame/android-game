@@ -6,7 +6,7 @@ import android.graphics.Color;
 import java.util.Optional;
 
 public class ImageService {
-    private static ImageService instance = null;
+    private static volatile ImageService instance;
 
     private Bitmap photo;
 
@@ -15,7 +15,11 @@ public class ImageService {
 
     public static ImageService getInstance() {
         if (instance == null) {
-            instance = new ImageService();
+            synchronized (ImageService.class) {
+                if (instance == null) {
+                    instance = new ImageService();
+                }
+            }
         }
         return instance;
     }
