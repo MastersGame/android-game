@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showScores(View view) {
-        //Intent intent = new Intent(this, ScoresActivity.class);
-        //startActivity(intent);
+        Intent intent = new Intent(this, ScoreActivity.class);
+        startActivity(intent);
     }
 }
