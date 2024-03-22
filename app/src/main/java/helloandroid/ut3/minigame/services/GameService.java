@@ -8,7 +8,6 @@ import helloandroid.ut3.minigame.data.Position;
 
 public class GameService {
     private static final int DEFAULT_RADIUS = 10;
-    private static final Position DEFAULT_STARTING_POSITION = new Position(5 + DEFAULT_RADIUS, 5 + DEFAULT_RADIUS);
     private static final int DEFAULT_STEP = 1;
 
     private static final int DEFAULT_BORDER_SIZE = 10;
@@ -82,8 +81,9 @@ public class GameService {
             case RIGHT:
                 nextX = ((currentPosition.getX() + DEFAULT_STEP) + map.getWidth()) % map.getWidth();
                 nextY = currentPosition.getY();
+                break;
             case CENTER:
-                nextX = currentPosition.getY();
+                nextX = currentPosition.getX();
                 nextY = currentPosition.getY();
                 break;
         }
@@ -93,7 +93,7 @@ public class GameService {
         //Check collision
         int nextPositionPixel = map.getPixel(nextPosition.getX(), nextPosition.getY());
         if (nextPositionPixel == ImageService.BLACK_PIXEL_COLOR) {
-            nextPosition = DEFAULT_STARTING_POSITION;
+            nextPosition = startingPosition;
         }
 
         //Set the new currentPosition
@@ -101,15 +101,15 @@ public class GameService {
     }
 
     public boolean isVictory() {
-        return victoryPosition.getY() == currentPosition.getY() && victoryPosition.getX() == victoryPosition.getX();
+        return victoryPosition.getY() == currentPosition.getY() && victoryPosition.getX() == currentPosition.getX();
     }
 
     public void setup() {
         map = imageService.getThresholdedBitmap();
         Random r = new Random();
         //Starting position
-        startingPosition = new Position(r.nextInt(map.getHeight() - 2 * DEFAULT_BORDER_SIZE + DEFAULT_BORDER_SIZE), r.nextInt(map.getHeight() - 2 * DEFAULT_BORDER_SIZE + DEFAULT_BORDER_SIZE));
-        victoryPosition = new Position(r.nextInt(map.getHeight() - 2 * DEFAULT_BORDER_SIZE + DEFAULT_BORDER_SIZE), r.nextInt(map.getHeight() - 2 * DEFAULT_BORDER_SIZE + DEFAULT_BORDER_SIZE));
+        startingPosition = new Position(r.nextInt(map.getHeight() - 2 * DEFAULT_BORDER_SIZE) + DEFAULT_BORDER_SIZE, r.nextInt(map.getHeight() - 2 * DEFAULT_BORDER_SIZE) + DEFAULT_BORDER_SIZE);
+        victoryPosition = new Position(r.nextInt(map.getHeight() - 2 * DEFAULT_BORDER_SIZE) + DEFAULT_BORDER_SIZE, r.nextInt(map.getHeight() - 2 * DEFAULT_BORDER_SIZE) + DEFAULT_BORDER_SIZE);
 
         currentPosition = startingPosition;
     }
