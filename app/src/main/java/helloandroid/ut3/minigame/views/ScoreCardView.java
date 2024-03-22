@@ -11,6 +11,7 @@ import helloandroid.ut3.minigame.R;
 public class ScoreCardView extends CardView {
 
     private TextView valueView;
+    private TextView tentativeView;
     private TextView dateView;
 
     public ScoreCardView(Context context) {
@@ -31,6 +32,7 @@ public class ScoreCardView extends CardView {
     private void init() {
         inflate(getContext(), R.layout.score_card, this);
         valueView = findViewById(R.id.score_value);
+        tentativeView = findViewById(R.id.score_tentatives);
         dateView = findViewById(R.id.score_date);
     }
 
@@ -51,6 +53,6 @@ public class ScoreCardView extends CardView {
     }
 
     public void setScoreNbTentatives(int nbTentatives) {
-        valueView.setText(String.valueOf(nbTentatives) + " tentatives");
+        tentativeView.setText(String.valueOf(nbTentatives) + " tentatives");
     }
 }
