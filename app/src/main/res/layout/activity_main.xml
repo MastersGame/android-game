@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/md_theme_surface"
-    tools:context=".MainActivity">
+    tools:context=".activities.MainActivity">
 
     <ImageView
         android:id="@+id/imageViewLogo"
@@ -12,8 +12,8 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
-        android:src="@drawable/logo"
-        android:contentDescription="@string/game_logo" />
+        android:contentDescription="@string/game_logo"
+        android:src="@drawable/logo" />
 
     <TextView
         android:id="@+id/textViewTitre"
@@ -32,8 +32,8 @@
         android:layout_below="@id/textViewTitre"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
-        android:text="@string/commencer"
-        android:onClick="startGame" />
+        android:onClick="startGame"
+        android:text="@string/commencer" />
 
     <Button
         android:id="@+id/buttonScores"
