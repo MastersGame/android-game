@@ -17,6 +17,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private final GameThread thread;
     private final int y;
     private final Bitmap photo;
+    private final int threshold = 128;
     private int x = 0;
 
     public GameView(Context context, int aY, Bitmap photo) {
@@ -78,7 +79,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             // Dessiner le rectangle rouge
             Paint paint = new Paint();
             paint.setColor(Color.rgb(250, 0, 0));
-            canvas.drawRect(x, y, x + 100, y + 200, paint);
+            canvas.drawCircle(x, y, 50, paint);
         }
     }
 
