@@ -14,12 +14,11 @@ import helloandroid.ut3.minigame.R;
 import helloandroid.ut3.minigame.services.GameService;
 import helloandroid.ut3.minigame.services.GyroscopeService;
 import helloandroid.ut3.minigame.services.VibratorService;
-import helloandroid.ut3.minigame.views.GameView;
 
 public class GameActivity extends AppCompatActivity {
 
-    GameService gameService;
     private final Handler handler = new Handler();
+    GameService gameService;
     private TextView timerTextView;
     private long startTime;
     private final Runnable updateTimerRunnable = new Runnable() {
@@ -32,6 +31,8 @@ public class GameActivity extends AppCompatActivity {
             // Mettre à jour le texte du TextView
             timerTextView.setText("Time: " + seconds + "s");
 
+            gameService.setTimer(seconds);
+
             // Planifier la prochaine mise à jour dans 1 seconde
             handler.postDelayed(this, 1000);
         }
@@ -43,18 +44,25 @@ public class GameActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.game);
-        timerTextView = findViewById(R.id.timerTextView);
-        timerTextView.setTextColor(Color.RED);
-        startTime = SystemClock.elapsedRealtime();
-        // Lancer la mise à jour du chronomètre
-        handler.post(updateTimerRunnable);
-
         VibratorService.instanciate(this);
         GyroscopeService.instanciate(this);
 
         gameService = GameService.getInstance();
-
         gameService.setup();
+
+        setContentView(R.layout.game);
+        timerTextView = findViewById(R.id.timerTextView);
+        timerTextView.setTextColor(Color.RED);
+        startTime = SystemClock.elapsedRealtime();
+
+        // Lancer la mise à jour du chronomètre
+        handler.post(updateTimerRunnable);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Arrêter la mise à jour du chronomètre pour éviter les fuites de mémoire
+        handler.removeCallbacks(updateTimerRunnable);
     }
 }

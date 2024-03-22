@@ -11,8 +11,8 @@ public class GameService {
     private static volatile GameService instance;
     private final int radius;
     private final ImageService imageService = ImageService.getInstance();
-
     private final GyroscopeService gyroscopeService = GyroscopeService.getInstance();
+    private int timer;
     private Bitmap map;
     private Position currentPosition;
 
@@ -80,5 +80,13 @@ public class GameService {
 
     public void setup() {
         map = imageService.getThresholdedBitmap();
+    }
+
+    public int getTimer() {
+        return timer;
+    }
+
+    public void setTimer(int timer) {
+        this.timer = timer;
     }
 }
