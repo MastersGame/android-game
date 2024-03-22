@@ -7,7 +7,6 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 import helloandroid.ut3.minigame.R;
-import helloandroid.ut3.minigame.ScoreActivity;
 
 public class MainActivity extends AppCompatActivity {
     @Override
