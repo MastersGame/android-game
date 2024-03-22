@@ -57,7 +57,7 @@ public class ScoreService {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 String[] parts = line.split(",");
-                scores.add(new Score(new Date(Long.parseLong(parts[0])), parts[1]));
+                scores.add(new Score(new Date(Long.parseLong(parts[0])), Integer.parseInt(parts[1])));
             }
         } catch (IOException e) {
             e.printStackTrace();
