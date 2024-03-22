@@ -5,4 +5,8 @@
     <string name="commencer">Commencer</string>
     <string name="scores">Scores</string>
     <string name="filtrer">Filtrer</string>
+    <string name="filter_time_hint">temps maximum</string>
+    <string name="all_scores">Tout</string>
+    <string name="dates">Dates :</string>
+    <string name="temps_maximum">Temps maximum :</string>
 </resources>

@@ -38,8 +38,8 @@ public class ScoreCardView extends CardView {
         return valueView;
     }
 
-    public void setScoreValue(String value) {
-        valueView.setText(value);
+    public void setScoreValue(int value) {
+        valueView.setText(String.valueOf(value));
     }
 
     public TextView getScoreDate() {
