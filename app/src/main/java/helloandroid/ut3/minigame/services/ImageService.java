@@ -24,6 +24,23 @@ public class ImageService {
         return instance;
     }
 
+    public static Bitmap flattenedVersion(Bitmap bitmap, int threshold) {
+        Bitmap greyVersion = createGreyVersion(bitmap);
+        Bitmap flattenedVersion = Bitmap.createBitmap(greyVersion.getWidth(), greyVersion.getHeight(), Bitmap.Config.ARGB_8888);
+
+        for (int y = 0; y < greyVersion.getHeight(); y++) {
+            for (int x = 0; x < greyVersion.getWidth(); x++) {
+                int pixel = greyVersion.getPixel(x, y);
+                int greyValue = Color.red(pixel);
+
+                int newPixelColor = (greyValue > threshold) ? Color.WHITE : Color.BLACK;
+
+                flattenedVersion.setPixel(x, y, newPixelColor);
+            }
+        }
+        return flattenedVersion;
+    }
+
     public static Bitmap createGreyVersion(Bitmap bitmap) {
         int width = bitmap.getWidth();
         int height = bitmap.getHeight();
