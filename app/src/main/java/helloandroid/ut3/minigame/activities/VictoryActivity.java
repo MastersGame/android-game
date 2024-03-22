@@ -17,6 +17,7 @@ import helloandroid.ut3.minigame.R;
 import helloandroid.ut3.minigame.data.Score;
 import helloandroid.ut3.minigame.services.GameService;
 import helloandroid.ut3.minigame.services.MusicService;
+import helloandroid.ut3.minigame.services.ScoreService;
 
 public class VictoryActivity extends AppCompatActivity {
 
@@ -40,7 +41,8 @@ public class VictoryActivity extends AppCompatActivity {
         TextView textView = findViewById(R.id.WinTextView);
 
         Score newScore = new Score(new Date(), gameService.getTimer(), gameService.getNbTentatives());
-
+        ScoreService.instanciate(this);
+        ScoreService.getInstance().addScore(newScore);
         textView.setText("Vous avez gagné, votre score était de " + newScore.getScore() + " en " + newScore.getNbTentatives() + " tentatives.");
 
         Button button = findViewById(R.id.button1);
