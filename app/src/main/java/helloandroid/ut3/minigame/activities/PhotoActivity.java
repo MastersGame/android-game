@@ -1,4 +1,4 @@
-package helloandroid.ut3.minigame;
+package helloandroid.ut3.minigame.activities;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -10,6 +10,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import helloandroid.ut3.minigame.R;
 import helloandroid.ut3.minigame.services.ImageService;
 
 public class PhotoActivity extends AppCompatActivity {
@@ -30,7 +31,7 @@ public class PhotoActivity extends AppCompatActivity {
                         Bundle extras = result.getData().getExtras();
                         Bitmap imageBitmap = (Bitmap) extras.get("data");
                         imageService.setPhoto(imageBitmap);
-                        Intent intent = new Intent(this, GameActivity.class);
+                        Intent intent = new Intent(this, ThresholdActivity.class);
                         this.startActivity(intent);
                     }
                 });
